@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#07142f">
+  <title>Угадай место по фотографии</title>
+  <link rel="preconnect" href="https://unpkg.com">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="ambient ambient-one" aria-hidden="true"></div>
+  <div class="ambient ambient-two" aria-hidden="true"></div>
+
+  <main class="page-shell">
+    <header class="hero">
+      <p class="eyebrow">Фото-квест</p>
+      <h1>Отгадай, где было сделано это фото?</h1>
+      <p class="hero-copy">Выбери точку на карте. Подсказки помогут добраться до цели.</p>
+    </header>
+
+    <div id="appError" class="app-error" role="alert" hidden></div>
+
+    <section id="gameLayout" class="game-layout" aria-label="Игровое поле">
+      <article id="photoPanel" class="panel photo-panel">
+        <div class="round-meta">
+          <span id="roundProgress" class="progress-pill">Фото 1 из 5</span>
+          <span id="attemptsText">Попыток: 0</span>
+        </div>
+
+        <div id="photoFrame" class="photo-frame">
+          <img id="locationPhoto" alt="Место, которое нужно угадать">
+          <div id="photoFallback" class="photo-fallback" hidden>
+            <span class="fallback-icon" aria-hidden="true">⌁</span>
+            <strong>Не удалось загрузить фотографию</strong>
+            <small id="photoPath"></small>
+          </div>
+        </div>
+
+        <div id="answerName" class="answer-name" hidden></div>
+        <div id="hint" class="hint hint-neutral" aria-live="polite">
+          Нажми на карту, чтобы сделать первую попытку.
+        </div>
+        <button id="nextButton" class="button button-primary" type="button" hidden>Следующее фото</button>
+      </article>
+
+      <section id="mapPanel" class="panel map-panel" aria-label="Интерактивная карта">
+        <div id="map" aria-label="Карта для выбора места"></div>
+        <div id="mapError" class="map-error" role="alert" hidden>
+          <strong>Не удалось загрузить карту</strong>
+          <span>Проверьте подключение к интернету и обновите страницу.</span>
+        </div>
+      </section>
+    </section>
+
+    <section id="finalSummary" class="final-summary" hidden>
+      <div>
+        <span class="summary-kicker">Маршрут завершён</span>
+        <strong>Все места угаданы!</strong>
+        <span id="finalAttempts"></span>
+      </div>
+      <button id="summaryResetButton" class="button button-secondary" type="button">Начать заново</button>
+    </section>
+  </main>
+
+  <div id="victoryModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="victoryTitle" hidden>
+    <canvas id="celebrationCanvas" aria-hidden="true"></canvas>
+    <div class="modal-card">
+      <div class="trophy" aria-hidden="true">★</div>
+      <p class="eyebrow">Пять из пяти</p>
+      <div class="victory-heading">
+        <h2 id="victoryTitle">Ура!!! Ты выиграл суперприз.</h2>
+        <button class="prize-help" type="button" aria-label="Условия получения суперприза" aria-describedby="prizeTooltip">?</button>
+        <span id="prizeTooltip" class="prize-tooltip" role="tooltip">*Суперприз предназначается только имениннику. Если ты к таковым не относишься, срочно закрой эту страницу!</span>
+      </div>
+      <p>Получить его можно будет <a id="prizeLink" href="#" target="_blank" rel="noopener noreferrer">тут</a>, поделись с <a id="telegramLink" href="#" target="_blank" rel="noopener noreferrer">@efilonov</a> своей статистикой и он подскажет как получить приз :)</p>
+      <div id="modalAttempts" class="modal-stat"></div>
+      <button id="copyStatsButton" class="button button-copy" type="button">Скопировать статистику</button>
+      <span id="copyStatus" class="copy-status" aria-live="polite"></span>
+      <div class="modal-actions">
+        <button id="viewMapButton" class="button button-primary" type="button">Посмотреть карту</button>
+        <button id="modalResetButton" class="button button-secondary" type="button">Начать заново</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="./script.js"></script>
+</body>
+</html>
