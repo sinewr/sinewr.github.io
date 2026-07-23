@@ -18,3 +18,4 @@ _site/
 Gemfile.lock
 
 ai_docs/
+/.vs
